@@ -43,7 +43,7 @@ def login(request):
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
             fName = user.first_name
             return render(request, "loginPage.html", {'fName': fName})
