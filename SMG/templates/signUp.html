@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: gray;
+        }
+        h1{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin: auto;
+            font-size: 2em;
+            font-weight: bold;
+            font-family: "Apple Chancery";
+            padding-top: 20px;
+        }
+
+        .div-form-wrapper{
+             display: flex;
+            justify-content: center;
+            text-align: center;
+            margin: auto;
+
+        }
+
+
+        .form-wrapper{
+            padding: 50px;
+            margin: 50px;
+            background-color: black;
+            color:white ;
+            border-radius: 2px ;
+        }
+    </style>
+</head>
+<body>
+<h1> Sign Up</h1>
+<div class="div-form-wrapper">
+<form class="form-wrapper"   action="/signup" method="post">
+    {% csrf_token %}
+    <label for=""> UserName</label>
+    <input type="text" id ="UserName" name ="username" placeholder="creat a username" required>
+    <br>
+    <label for="">First Name </label>
+    <input type="text" id ="fName" name ="fName" placeholder="Enter your First  name " required>
+    <br>
+    <label for="">Last Name</label>
+    <input type="text" id ="lName" name ="lName" placeholder="Enter your last name" required>
+    <br>
+    <label for="">Email Address</label>
+    <input type="email" id ="email" name ="email" placeholder="Enter your email address" required>
+    <br>
+     <label for="">password</label>
+    <input type="password" id ="id_password" name ="id_password" placeholder="Enter your password" required>
+    <br>
+     <label for="">Confirm your Password</label>
+    <input type="password" id ="con_password" name ="con_password" placeholder="Confirm your password" required>
+    <br>
+    <button type="submit"> sign up</button>
+
+</form>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 Max_length = 1023
 
@@ -27,3 +28,8 @@ class Account(models.Model):
 
     def get_role(self):
         return self.role
+
+class home(models.models):
+    name = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+    email = models.CharField(max_length=20)
