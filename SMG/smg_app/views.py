@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as login_user
+from django.contrib.auth import authenticate, login as login_user, logout as logout_user
 
 
 def home(request):
-    return render(request, 'loginPage.html')
+    return render(request, 'home.html')
 
 
 def signup(request):
@@ -45,10 +45,14 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user:
             login_user(request, user)
-            fName = user.first_name
-            return render(request, "loginPage.html", {'fName': fName})
+            return redirect('home')
         else:
             messages.error(request, 'Bad Credential')
-            return redirect('home')
+            return render(request, "loginPage.html")
 
     return render(request, 'loginPage.html')
+
+
+def logout(request):
+    logout_user(request)
+    return redirect("login")

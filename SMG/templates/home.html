@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - SMG</title>
+</head>
+<body>
+    <h1>Hi {{ user.first_name }}!</h1>
+    <h2>We haven't styled this quite yet, but stick around for awhile.</h2>
+    <h3>Your username is <b>{{ user.username }}</b> and you're {% if not user.is_staff %}not {% endif %}an admin, aren't you?</h3>
+</body>
+</html>
