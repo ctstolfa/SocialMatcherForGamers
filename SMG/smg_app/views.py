@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 
-
-# Create your views here.
 
 def home(request):
     return render(request, 'loginPage.html')
@@ -49,7 +48,7 @@ def login(request):
             fName = user.first_name
             return render(request, "loginPage.html", {'fName': fName})
         else:
-            messagess.error(request, 'Bad Credential')
+            messages.error(request, 'Bad Credential')
             return redirect('home')
 
     return render(request, 'loginPage.html')
