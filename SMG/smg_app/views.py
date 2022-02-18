@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as login_user
 
 
 def home(request):
@@ -44,7 +44,7 @@ def login(request):
 
         user = authenticate(username=username, password=password)
         if user:
-            login(request, user)
+            login_user(request, user)
             fName = user.first_name
             return render(request, "loginPage.html", {'fName': fName})
         else:
