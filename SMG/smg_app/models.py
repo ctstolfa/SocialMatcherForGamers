@@ -29,7 +29,7 @@ class Account(models.Model):
     def get_role(self):
         return self.role
 
-class home(models.models):
+class home(models.Model):
     name = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
