@@ -66,3 +66,11 @@ def search(request):
                                                'users': users,})
     else:
         return render(request, 'search.html', {})
+
+def profile(request):
+    if request.method == "POST":
+        user = request.POST['user']
+        user_profile = Account.objects.filter(name__exact=user)
+        return render(request, 'profile.html', {'user':user, 'user_profile': user_profile})
+    else:
+        return render(request, 'profile.html', {})
