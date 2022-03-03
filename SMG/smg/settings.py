@@ -29,7 +29,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+#<<<<<<< Search
+#    'smg_app.apps.SmgAppConfig',
+#=======
 
+#>>>>>>> main
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

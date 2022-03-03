@@ -36,12 +36,16 @@ class Account(models.Model):
     def get_role(self):
         return self.role
 
+#<<<<<<< Search
+class home(models.Model):
+#=======
     def get_gameMode(self):
         return self. gameMode
 
 
 # games section
 class Games(models.Model):
+#>>>>>>> main
     name = models.CharField(max_length=20)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 

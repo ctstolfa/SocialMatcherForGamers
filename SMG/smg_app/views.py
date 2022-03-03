@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as login_user, logout as logout_user
+from .models import Account
 
 
 
@@ -39,7 +40,7 @@ def signup(request):
         myuser.first_name = fName
         myuser.last_name = lName
         myuser.save()
-        messagess.success(request, "your account has been  successfully created")
+        messages.success(request, "your account has been  successfully created")
         # redirect the login page
         return redirect("Login_Page")
     return render(request, 'signUp.html')
@@ -67,3 +68,20 @@ def Login_Page(request):
 def logout(request):
     logout_user(request)
     return redirect("login")
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        users = Account.objects.filter(name__contains=searched)
+        return render(request, 'search.html', {'searched': searched,
+                                               'users': users,})
+    else:
+        return render(request, 'search.html', {})
+
+def profile(request):
+    if request.method == "POST":
+        user = request.POST['user']
+        user_profile = Account.objects.filter(name__exact=user)
+        return render(request, 'profile.html', {'user':user, 'user_profile': user_profile})
+    else:
+        return render(request, 'profile.html', {})
