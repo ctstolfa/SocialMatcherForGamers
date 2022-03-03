@@ -11,10 +11,15 @@ class Account(models.Model):
         USER = 0, "User"
         ADMIN = 1, "Admin"
 
+    class gameStyle(models.IntegerChoices):
+        CASUAL = 0, "Casual"
+        COMPETITIVE = 1, "Competitive"
+
     userName = models.CharField(max_length=20)
     role = models.IntegerField(choices=Role.choices)
-    email = models.EmailField()
+    email = models.EmailField(max_length=20)
     password = models.CharField(max_length=20)
+    gameMode = models.IntegerField(choices=gameStyle.choices)
 
     def __str__(self):
         return self.userName
@@ -30,6 +35,9 @@ class Account(models.Model):
 
     def get_role(self):
         return self.role
+
+    def get_gameMode(self):
+        return self. gameMode
 
 
 # games section
@@ -57,6 +65,6 @@ class Schedule(models.Model):
 
 
 # game mode section
-class GameMode(models.Model):
-    games = models.ForeignKey(Games, on_delete=models.CASCADE)
-    gameMode = models.CharField(max_length=20)
+# class GameMode(models.Model):
+#     games = models.ForeignKey(Games, on_delete=models.CASCADE)
+#     gameMode = models.CharField(max_length=20)

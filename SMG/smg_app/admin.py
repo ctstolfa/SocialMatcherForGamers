@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Games,Schedule, Account, GameMode
+from .models import Games,Schedule, Account
 
 # Register your models here.
 # admin.site.register(User)
@@ -8,6 +8,6 @@ from .models import Games,Schedule, Account, GameMode
 admin.site.register(Account)
 admin.site.register(Games)
 admin.site.register(Schedule)
-admin.site.register(GameMode)
+
 
 
