@@ -2,10 +2,17 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from django.shortcuts import render, redirect
 
+
 # Create your views here.
 
 # def home(request):
 #     return render(request, 'loginPage.html')
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as login_user, logout as logout_user
+
+
+
 
 
 def signup(request):
@@ -44,6 +51,7 @@ def Login_Page(request):
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
+
         if user is not None:
             login(request, user)
             uName = user.username
@@ -52,4 +60,10 @@ def Login_Page(request):
             # messages.error(request, 'Bad Credential')
             return redirect('signup')
 
+
     return render(request, 'loginPage.html')
+
+
+def logout(request):
+    logout_user(request)
+    return redirect("login")

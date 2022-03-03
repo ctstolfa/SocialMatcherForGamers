@@ -1,6 +1,6 @@
-from django.contrib import admin
 from django.urls import path
 from . import views
+
 
 
 urlpatterns = [
@@ -8,6 +8,4 @@ urlpatterns = [
     path('', views.Login_Page, name="Login_page"),
     # path('', views.home, name='home'),
     path('signup', views.signup, name="signup"),
-
-
 ]

@@ -20,7 +20,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("smg_app.urls")),
 ]
-
-
-
-
