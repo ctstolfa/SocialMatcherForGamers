@@ -141,10 +141,10 @@
         </button>
 </div>
 {% endfor %}
-{% if user.is_authenticated  %}
-<h3>Hello {{ fName }}</h3>
-<h4>You're successfully logged in</h4>
-{% endif %}
+{#{% if user.is_authenticated  %}#}
+{#<h3>Hello {{ fName }}</h3>#}
+{#<h4>You're successfully logged in</h4>#}
+{#{% endif %}#}
 
 <header class="nav-wrapper">
     <div class="nav-internal-wrapper">
@@ -163,13 +163,20 @@
 </header>
 <section class="first-section-wrapper">
     <div class="first-section-internal-wrapper">
-        <form class="login-wrapper" method="post">
+
+        <form class="login-wrapper" method="post" action="{% url 'Login_page' %}">
+
               {% csrf_token %}
+
             <h1>Login SMG</h1>
             <input style="display: inline-block" type="text" name="username" id ="user" placeholder="UserName">
-            <input style="display: inline-block" type="text" name="password" id ="password" placeholder="Password">
+            <input style="display: inline-block" type="password" name="password" id ="password" placeholder="Password">
              <input type="submit" name="" value="login">
         </form>
+{#    {% if user.is_authenticated %}#}
+{#            <h3>Hello {{ fname }}</h3>#}
+{#            <h4>You're successfully logged in</h4>#}
+{#            {% endif %}#}
     </div>
 
 
