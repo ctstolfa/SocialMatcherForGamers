@@ -37,6 +37,7 @@ def signup(request):
         return redirect("Login_Page")
     return render(request, 'signUp.html')
 
+#login page
 
 def Login_Page(request):
 
