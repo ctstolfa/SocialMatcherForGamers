@@ -5,9 +5,7 @@
     <title>Profile</title>
 </head>
 <body>
-    <h1>{{ user.name }}</h1>
-    {% for trait in user.traits %}
-        <li>{{ trait.text }}</li>
-    {% endfor %}
+    <h1>{{ user.username }}</h1>
+    <li>{{ user.email }}</li>
 </body>
 </html>
