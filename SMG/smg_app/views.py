@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout as logout_user
+from django.contrib.auth.forms import UserCreationForm
 from .models import Account
 
 # Create your views here.
@@ -9,34 +10,20 @@ from .models import Account
 def home(request):
     return render(request, 'loginPage.html')
 
-def signup(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        fName = request.POST['fName']
-        lName = request.POST['lName']
-        email = request.POST['email']
-        id_password = request.POST['id_password']
-        con_password = request.POST['con_password']
-        # user validation
-        if Account.object.filter(username=username):
-            messages.error(request, "username already exist! please try some other user name")
-            return redirect('home')
-        if Account.object.filter(email=email):
-            messages.error(request, "Email already register please use different email")
-            return redirect('home')
-        if len(username) > 10:
-            messages.error(request, "username must be under 10 charcters")
-            return redirect('home')
-        if con_password != id_password:
-            messages.error(request, "passwords didn't match!")
-        myuser = Account.object.create_user(username, email, id_password)
-        myuser.first_name = fName
-        myuser.last_name = lName
-        myuser.save()
-        messages.success(request, "your account has been  successfully created")
-        # redirect the login page
-        return redirect("login")
-    return render(request, 'signUp.html')
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            messages.success(request, "Registration successful!")
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'signUp.html', {'form': form, })
 
 
 def login(request):
