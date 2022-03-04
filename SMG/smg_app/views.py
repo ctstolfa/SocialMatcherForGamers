@@ -1,17 +1,13 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate,login
-from django.shortcuts import render, redirect
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout as logout_user
+from .models import Account
 
 # Create your views here.
 
-# def home(request):
-#     return render(request, 'loginPage.html')
-
-from django.contrib import messages
-from django.contrib.auth import authenticate, login as login_user, logout as logout_user
-from .models import Account
-
+def home(request):
+    return render(request, 'loginPage.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -39,12 +35,11 @@ def signup(request):
         myuser.save()
         messages.success(request, "your account has been  successfully created")
         # redirect the login page
-        return redirect("Login_Page")
+        return redirect("login")
     return render(request, 'signUp.html')
 
 
-def Login_Page(request):
-
+def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
