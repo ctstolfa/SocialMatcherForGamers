@@ -13,9 +13,6 @@ from django.contrib.auth import authenticate, login as login_user, logout as log
 from .models import Account
 
 
-
-
-
 def signup(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -25,10 +22,10 @@ def signup(request):
         id_password = request.POST['id_password']
         con_password = request.POST['con_password']
         # user validation
-        if user.object.filter(username=username):
+        if Account.object.filter(username=username):
             messages.error(request, "username already exist! please try some other user name")
             return redirect('home')
-        if user.object.filter(email=email):
+        if Account.object.filter(email=email):
             messages.error(request, "Email already register please use different email")
             return redirect('home')
         if len(username) > 10:
@@ -36,7 +33,7 @@ def signup(request):
             return redirect('home')
         if con_password != id_password:
             messages.error(request, "passwords didn't match!")
-        myuser = user.object.create_user(username, email, id_password)
+        myuser = Account.object.create_user(username, email, id_password)
         myuser.first_name = fName
         myuser.last_name = lName
         myuser.save()
@@ -44,6 +41,7 @@ def signup(request):
         # redirect the login page
         return redirect("Login_Page")
     return render(request, 'signUp.html')
+
 
 def Login_Page(request):
 
@@ -60,14 +58,13 @@ def Login_Page(request):
         else:
             # messages.error(request, 'Bad Credential')
             return redirect('signup')
-
-
     return render(request, 'loginPage.html')
 
 
 def logout(request):
     logout_user(request)
     return redirect("login")
+
 
 def search(request):
     if request.method == "POST":
@@ -77,6 +74,7 @@ def search(request):
                                                'users': users,})
     else:
         return render(request, 'search.html', {})
+
 
 def profile(request):
     if request.method == "POST":
