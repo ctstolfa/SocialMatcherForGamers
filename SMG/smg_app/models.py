@@ -39,7 +39,7 @@ class Account(models.Model):
 # games section
 class Games(models.Model):
     name = models.CharField(max_length=20)
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -55,6 +55,6 @@ class Schedule(models.Model):
     saturday = models.BooleanField(default=False)
     sunday = models.BooleanField(default=False)
     time = models.DateTimeField(default=timezone.now)
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     # games = models.ForeignKey(Games, on_delete=models.CASCADE)
