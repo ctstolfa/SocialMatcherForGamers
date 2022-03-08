@@ -6,6 +6,6 @@ urlpatterns = [
     path('login', views.login, name="login"),
     path('register', views.register, name="register"),
     path("logout", views.logout, name="logout"),
-    #path("signup", views.signup, name="signup"),
     path('search', views.search, name='search'),
+    path("profile/(?P<username>\w+)", views.profile, name="profile"),
 ]

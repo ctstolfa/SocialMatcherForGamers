@@ -15,11 +15,11 @@ class Account(models.Model):
         CASUAL = 0, "Casual"
         COMPETITIVE = 1, "Competitive"
 
-    userName = models.CharField(max_length=20)
+    userName = models.CharField(max_length=20, default="")
     role = models.IntegerField(choices=Role.choices)
     email = models.EmailField(max_length=20)
     password = models.CharField(max_length=20)
-    gameMode = models.IntegerField(choices=gameStyle.choices)
+    gameMode = models.IntegerField(choices=gameStyle.choices, default=0)
 
     def __str__(self):
         return self.userName
@@ -55,7 +55,7 @@ class Schedule(models.Model):
     friday = models.BooleanField(default=False)
     saturday = models.BooleanField(default=False)
     sunday = models.BooleanField(default=False)
-    time = models.DateTimeField(default=timezone.now())
+    time = models.DateTimeField(default=timezone.now)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     # games = models.ForeignKey(Games, on_delete=models.CASCADE)

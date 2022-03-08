@@ -23,7 +23,7 @@
                 <h1>You searched for {{ searched }} </h1>
                 {% for user in users %}
                     <!-- 'home' will change to url of user profile -->
-                     <a href="{% url 'home' %}"> {{ user }}</a><br/>
+                     <a href="{% url 'profile' username=user %}"> {{ user }}</a><br/>
                 {% endfor %}
             {% else %}
                 <h1>Search for something</h1>
