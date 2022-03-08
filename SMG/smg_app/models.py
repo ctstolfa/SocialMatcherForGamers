@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -7,28 +8,20 @@ Max_length = 1023
 
 # account section
 class Account(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     class Role(models.IntegerChoices):
         USER = 0, "User"
         ADMIN = 1, "Admin"
 
-    class GameStyle(models.IntegerChoices):
-        CASUAL = 0, "Casual"
-        COMPETITIVE = 1, "Competitive"
+    class GameStyle(models.TextChoices):
+        CASUAL = "Casual"
+        COMPETITIVE = "Competitive"
 
-    name = models.CharField(max_length=20)
     role = models.IntegerField(choices=Role.choices)
-    email = models.EmailField(max_length=20)
-    password = models.CharField(max_length=20)
-    gameStyle = models.IntegerField(choices=GameStyle.choices)
+    gameStyle = models.TextField(choices=GameStyle.choices)
 
     def __str__(self):
-        return self.name
-
-    def set_email(self):
-        email = self.email
-
-    def get_email(self):
-        return self.email
+        return str(self.user)
 
     def set_role(self):
         role = self.role

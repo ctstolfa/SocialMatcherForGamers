@@ -59,7 +59,7 @@ def search(request):
         return render(request, 'search.html', {})
 
 
-def profile (request, username):
+def profile(request, username):
     # If no such user exists raise 404
     try:
         user = User.objects.get(username=username)
@@ -69,7 +69,7 @@ def profile (request, username):
     # Flag that determines if we should show editable elements in template
     editable = False
     # Handling non authenticated user for obvious reasons
-    if request.user.is_authenticated() and request.user == user:
+    if request.user.is_authenticated and request.user == user:
         editable = True
 
     context = locals()
