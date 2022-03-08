@@ -61,7 +61,7 @@ class Schedule(models.Model):
     friday = models.BooleanField(default=False)
     saturday = models.BooleanField(default=False)
     sunday = models.BooleanField(default=False)
-    time = models.DateTimeField(default=timezone.now())
+    time = models.DateTimeField(default=timezone.now)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     # games = models.ForeignKey(Games, on_delete=models.CASCADE)
