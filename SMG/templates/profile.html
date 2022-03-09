@@ -5,7 +5,8 @@
     <title>Profile</title>
 </head>
 <body>
-    <h1>{{ user.username }}</h1>
-    <li>{{ user.account.gameStyle }}</li>
+    <h1>This is the profile of {{user.username }}</h1>
+    <li>My game style: {{user.account.gameStyle }}</li>
+    <li>The type of game genres I play: {{ user.account.genres }}</li>
 </body>
 </html>

@@ -6,7 +6,7 @@ urlpatterns = [
     path('loginPage', views.loginPage, name="loginPage"),
     path('register', views.register, name="register"),
     path("logout", views.logout, name="logout"),
-    path("profile/(?P<username>\w+)", views.profile, name="profile"),
+    path("profile/<username>", views.profile, name="profile"),
     #path("signup", views.signup, name="signup"),
     path('search', views.search, name='search'),
 ]

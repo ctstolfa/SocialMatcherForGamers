@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from multiselectfield import MultiSelectField
 
 # Create your models here.
 Max_length = 1023
@@ -16,6 +17,22 @@ class Account(models.Model):
     class GameStyle(models.TextChoices):
         CASUAL = "Casual"
         COMPETITIVE = "Competitive"
+
+
+    Genres = (
+        ('MOBA','MOBA'),
+        ('Shooters','Shooters'),
+        ('Platformer','Platformer'),
+        ('RPG','RPG'),
+        ('Action-adventure','Action-adventure'),
+        ('RTS','RTS'),
+        ('Puzzles','Puzzles'),
+        ('ParyGames','ParyGames'),
+        ('Survival','Survival'),
+        ('Horror','Horror'),
+    )
+
+    genres = MultiSelectField(choices=Genres)
 
     role = models.IntegerField(choices=Role.choices)
     gameStyle = models.TextField(choices=GameStyle.choices)
@@ -38,11 +55,8 @@ class Account(models.Model):
 
 # games section
 class Games(models.Model):
-    name = models.CharField(max_length=20)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
-
     def __str__(self):
-        return self.name
+        return self.Genres
 
 
 # schedule section
