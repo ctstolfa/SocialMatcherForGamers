@@ -34,6 +34,27 @@ class Account(models.Model):
 
     genres = MultiSelectField(choices=Genres)
 
+    days = (
+        ('Monday','Monday'),
+        ('Tuesday','Tuesday'),
+        ('Wednesday','Wednesday'),
+        ('Thursday','Thursday'),
+        ('Friday','Friday'),
+        ('Saturday','Saturday'),
+        ('Sunday','Sunday'),
+    )
+
+    schedule = MultiSelectField(choices=days)
+
+    times = (
+        ('Morning','Morning'),
+        ('Afternoon','Afternoon'),
+        ('Night','Night'),
+        ('Midnight','Midnight'),
+    )
+
+    time = models.TextField(choices=times)
+
     role = models.IntegerField(choices=Role.choices)
     gameStyle = models.TextField(choices=GameStyle.choices)
 
@@ -69,6 +90,6 @@ class Schedule(models.Model):
     saturday = models.BooleanField(default=False)
     sunday = models.BooleanField(default=False)
     time = models.DateTimeField(default=timezone.now)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    #account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     # games = models.ForeignKey(Games, on_delete=models.CASCADE)
