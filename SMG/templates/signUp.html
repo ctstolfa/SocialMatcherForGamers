@@ -1,70 +1,180 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>SMG</title>
+      <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
+    />
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
         body{
             background-color: gray;
+            font-family: AppleSystemUIFont;
+            opacity: 0.5;
         }
-        h1{
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            margin: auto;
-            font-size: 2em;
-            font-weight: bold;
-            font-family: "Apple Chancery";
-            padding-top: 20px;
-        }
-
-        .div-form-wrapper{
-             display: flex;
-            justify-content: center;
-            text-align: center;
-            margin: auto;
-
-        }
-
-
-        .form-wrapper{
-            padding: 50px;
-            margin: 50px;
+        .nav-wrapper{
             background-color: black;
-            color:white ;
-            border-radius: 2px ;
+            margin: 0;
+            padding: 0;
+            opacity: 1;
+
         }
+        .nav-internal-wrapper{
+            margin:0 10% 0  35% ;
+            height: 40px;
+             background-color: black;
+
+        }
+        .nav-internal-wrapper ul{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+
+        }
+        .nav-internal-wrapper ul li{
+            list-style:  none;
+            margin: 4px;
+        }
+        .nav-internal-wrapper ul li a{
+            text-align: center;
+            text-decoration: none;
+            color: white;
+        }
+        .login-wrapper{
+            width: 300px;
+            padding: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #191919;
+            text-align: center;
+        }
+          .login-wrapper h1{
+              color: white;
+              text-transform: uppercase;
+              font-weight: 500;
+          }
+          .login-wrapper input[type = "text"],.login-wrapper input[type = "password"]{
+              border: 0;
+              background: none;
+              display: block;
+              margin: 20px auto;
+              text-align: center;
+              border: 2px solid #3498db;
+              padding: 14px 10px;
+              width: 200px;
+              outline: none;
+              color: white;
+              border-radius: 24px;
+              transition: 0.25s;
+          }
+          .login-wrapper input[type = "text"]:focus,.login-wrapper input[type = "password"]:focus{
+              width: 280px;
+              border-color: #2ecc71;
+          }
+          .login-wrapper input[type = "submit"]{
+              border: 0;
+              background: none;
+              display: block;
+              margin: 20px auto;
+              text-align: center;
+              border: 2px solid #2ecc71;
+              padding: 14px 40px;
+              outline: none;
+              color: white;
+              border-radius: 24px;
+              transition: 0.25s;
+              cursor: pointer;
+          }
+          .nav-internal-wrapper .nav-internal-ul-wrapper li{
+              display: none;
+          }
+          .login-wrapper input[type = "submit"]:hover{
+              background: #2ecc71;
+          }
+
+           .signin a::before {
+              font-family: "FontAwesome";
+              content: "\f2a7";
+              font-weight: 900;
+              padding-left: 10px;
+          }
+           .support a::before {
+              font-family: "FontAwesome";
+              content: "\f2a0";
+              font-weight: 900;
+              padding-left: 10px;
+          }
+
+          @media (max-width: 600px) {
+              ul li{
+                  display: none;
+              }
+              .nav-internal-wrapper .nav-internal-ul-wrapper li{
+                  display: flex;
+                  justify-content: center;
+                  text-align: center;
+                  display: block;
+                  color: white;
+                  font-family: AppleSystemUIFont;
+                  font-size: 2em;
+                  font-weight: 700;
+          }
+          }
     </style>
 </head>
 <body>
-<h1> Sign Up</h1>
-<div class="div-form-wrapper">
-<form class="form-wrapper"   action="/signup" method="post">
-    {% csrf_token %}
-    <label for=""> UserName</label>
-    <input type="text" id ="UserName" name ="username" placeholder="creat a username" required>
-    <br>
-    <label for="">First Name </label>
-    <input type="text" id ="fName" name ="fName" placeholder="Enter your First  name " required>
-    <br>
-    <label for="">Last Name</label>
-    <input type="text" id ="lName" name ="lName" placeholder="Enter your last name" required>
-    <br>
-    <label for="">Email Address</label>
-    <input type="email" id ="email" name ="email" placeholder="Enter your email address" required>
-    <br>
-     <label for="">password</label>
-    <input type="password" id ="id_password" name ="id_password" placeholder="Enter your password" required>
-    <br>
-     <label for="">Confirm your Password</label>
-    <input type="password" id ="con_password" name ="con_password" placeholder="Confirm your password" required>
-    <br>
-    <button type="submit"> sign up</button>
-
-</form>
+{% for message in messages  %}
+<div class="alert alert-{{ message.tages }} alert-dismissible fade show" role="alert">
+    <strong> Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss = "alert" aria-label="close"> <span aria-hidden = "true" > &time</span>
+        </button>
 </div>
+{% endfor %}
+{% if user.is_authenticated  %}
+<h3>Hello {{ fName }}</h3>
+<h4>You're successfully logged in</h4>
+{% endif %}
+
+<header class="nav-wrapper">
+    <div class="nav-internal-wrapper">
+        <ul class="nav-internal-ul-wrapper ">
+              <li>Welcome to SMG </li>
+        </ul>
+
+        <ul>
+           <li class="about"><a href="#"> About </a></li>
+            <li class="login"><a href="{% url 'loginPage' %}"> Login</a></li>
+        </ul>
+    </div>
+</header>
+<section class="first-section-wrapper">
+    <div class="first-section-internal-wrapper">
+        <form class="login-wrapper" method="post">
+              {% csrf_token %}
+            <h1>Register SMG</h1>
+            {% if form.errors %}
+            <br><h3>There was an error in your form!</h3>
+            <h4>Check "Password Confirmation" below.</h4><br>
+            {% endif %}
+            {{ form }}
+             <input type="submit" name="" value="Register">
+        </form>
+    </div>
+
+
+</section>
+    <section class=" footer-wrapper">
+    </section>
 </body>
 </html>

@@ -1,12 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Home - SMG</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SMG</title>
+      <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
+    />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: gray;
+            font-family: AppleSystemUIFont;
+            opacity: 0.5;
+        }
+        .nav-wrapper{
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            opacity: 1;
+
+        }
+        .nav-internal-wrapper{
+            margin:0 10% 0  35% ;
+            height: 40px;
+             background-color: black;
+
+        }
+        .nav-internal-wrapper ul{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+
+        }
+        .nav-internal-wrapper ul li{
+            list-style:  none;
+            margin: 4px;
+        }
+        .nav-internal-wrapper ul li a{
+            text-align: center;
+            text-decoration: none;
+            color: white;
+        }
+        .login-wrapper{
+            width: 300px;
+            padding: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #191919;
+            text-align: center;
+        }
+          .login-wrapper h1{
+              color: white;
+              text-transform: uppercase;
+              font-weight: 500;
+          }
+          .login-wrapper input[type = "text"],.login-wrapper input[type = "password"]{
+              border: 0;
+              background: none;
+              display: block;
+              margin: 20px auto;
+              text-align: center;
+              border: 2px solid #3498db;
+              padding: 14px 10px;
+              width: 200px;
+              outline: none;
+              color: white;
+              border-radius: 24px;
+              transition: 0.25s;
+          }
+          .login-wrapper input[type = "text"]:focus,.login-wrapper input[type = "password"]:focus{
+              width: 280px;
+              border-color: #2ecc71;
+          }
+          .login-wrapper input[type = "submit"]{
+              border: 0;
+              background: none;
+              display: block;
+              margin: 20px auto;
+              text-align: center;
+              border: 2px solid #2ecc71;
+              padding: 14px 40px;
+              outline: none;
+              color: white;
+              border-radius: 24px;
+              transition: 0.25s;
+              cursor: pointer;
+          }
+          .nav-internal-wrapper .nav-internal-ul-wrapper li{
+              display: none;
+          }
+          .login-wrapper input[type = "submit"]:hover{
+              background: #2ecc71;
+          }
+
+           .signin a::before {
+              font-family: "FontAwesome";
+              content: "\f2a7";
+              font-weight: 900;
+              padding-left: 10px;
+          }
+           .support a::before {
+              font-family: "FontAwesome";
+              content: "\f2a0";
+              font-weight: 900;
+              padding-left: 10px;
+          }
+
+          @media (max-width: 600px) {
+              ul li{
+                  display: none;
+              }
+              .nav-internal-wrapper .nav-internal-ul-wrapper li{
+                  display: flex;
+                  justify-content: center;
+                  text-align: center;
+                  display: block;
+                  color: white;
+                  font-family: AppleSystemUIFont;
+                  font-size: 2em;
+                  font-weight: 700;
+          }
+          }
+    </style>
 </head>
 <body>
-    <h1>Hi {{ user.first_name }}!</h1>
-    <h2>We haven't styled this quite yet, but stick around for awhile.</h2>
-    <h3>Your username is <b>{{ user.username }}</b> and you're {% if not user.is_staff %}not {% endif %}an admin, aren't you?</h3>
+{% for message in messages  %}
+<div class="alert alert-{{ message.tages }} alert-dismissible fade show" role="alert">
+    <strong> Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss = "alert" aria-label="close"> <span aria-hidden = "true" > &time</span>
+        </button>
+</div>
+{% endfor %}
+{% if user.is_authenticated  %}
+<h3>Hello {{ fName }}</h3>
+<h4>You're successfully logged in</h4>
+{% endif %}
+
+<header class="nav-wrapper">
+    <div class="nav-internal-wrapper">
+        <ul class="nav-internal-ul-wrapper ">
+              <li>Welcome to SMG </li>
+        </ul>
+
+        <ul>
+           <li class="about"><a href="#"> About </a></li>
+            <li class="login"><a href="{% url 'loginPage' %}"> Login</a></li>
+           <li class="register"><a href="{% url 'register' %}"> Register</a></li>
+        </ul>
+    </div>
+</header>
+<section class="first-section-wrapper">
+    <div class="first-section-internal-wrapper">
+        <form class="login-wrapper" method="post">
+              {% csrf_token %}
+            <h1>Login SMG</h1>
+            <input style="display: inline-block" type="text" name="username" id ="user" placeholder="UserName">
+            <input style="display: inline-block" type="text" name="password" id ="password" placeholder="Password">
+             <input type="submit" name="" value="login">
+        </form>
+    </div>
+
+
+</section>
+    <section class=" footer-wrapper">
+    </section>
 </body>
 </html>

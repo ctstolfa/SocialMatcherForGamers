@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Users</title>
+</head>
+
+<body>
+    <section class="search-bar-wrapper">
+        <form class="search-bar" method=POST action="{%url 'search' %}">
+
+            {% csrf_token %}
+
+            <input class="search-bar-input" type="search"
+                   placeholder="Search Users" aria-label=" Search" name="searched">
+            <input type="submit" name="" value="search">
+        </form>
+    </section>
+
+    <section class="search-list-wrapper">
+        <center>
+            {% if searched %}
+                <h1>You searched for {{ searched }} </h1>
+                {% for user in users %}
+                    <!-- 'home' will change to url of user profile -->
+                     <a href="{% url 'profile' username=user %}"> {{ user }}</a><br/>
+                {% endfor %}
+            {% else %}
+                <h1>Search for something</h1>
+            {% endif %}
+        </center>
+    </section>
+</body>
+</html>
