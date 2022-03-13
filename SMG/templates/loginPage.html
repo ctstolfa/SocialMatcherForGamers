@@ -7,19 +7,28 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SMG</title>
+{#    #css style section#}
+    {% load static %}
+
+     <link rel="stylesheet" type="text/css" href="{% static 'CSS/bootstrap.css' %}">
+     <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+
       <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
     />
+{#        <!-- Styles -->#}
+{#    <!-- Bootstrap Styles -->#}
+{#    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />#}
     <style>
         *{
             margin: 0;
             padding: 0;
         }
         body{
-            background-color: gray;
-            font-family: AppleSystemUIFont;
-            opacity: 0.5;
+            {#background-color: gray;#}
+            {#font-family: AppleSystemUIFont;#}
+            {#opacity: 0.5;#}
         }
         .nav-wrapper{
             background-color: black;
