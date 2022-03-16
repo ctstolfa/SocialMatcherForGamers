@@ -10,6 +10,7 @@ Max_length = 1023
 # account section
 class Account(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+
     class Role(models.IntegerChoices):
         USER = 0, "User"
         ADMIN = 1, "Admin"
