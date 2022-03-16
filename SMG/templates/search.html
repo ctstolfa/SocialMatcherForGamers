@@ -1,8 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <title>Search Users</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+{#    {% load static %}#}
+{#    <link rel="stylesheet" href="{% static 'CSS/bootstrap.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">#}
+     <title>Search Users</title>
+    <style>
+        body{
+            background-color: rgb(197, 218, 242);
+            opacity: 0.7;
+        }
+        .search-bar-wrapper{
+            text-align:center ;
+            font-family: -apple-system;
+            font-weight: bold;
+            font-size: medium;
+
+        }
+        .search-list-wrapper{
+            text-align:center ;
+            font-family: -apple-system;
+            font-weight: bold;
+            font-size: medium;
+
+        }
+        .search-list-wrapper{
+            text-align:center ;
+            font-family: -apple-system;
+            font-weight: bold;
+            font-size: medium;
+
+        }
+        .search-bar-input{
+            width: 600px;
+            height: 40px;
+            border: 2px darkslategray solid;
+            border-radius: 5em;
+        }
+        .searchStyle{
+            font-size: medium;
+            font-size: 1.5em;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+            color: black;
+            opacity: 1;
+
+        }
+        .search-bar-input{
+            text-align: center;
+            font-size: 1.5em;
+        }
+        .search{
+            width: 60px;
+            height: 40px;
+            border: 2px darkslategray solid;
+            border-radius: 5em;
+        }
+
+
+
+
+    </style>
 </head>
 
 <body>
@@ -13,7 +76,7 @@
 
             <input class="search-bar-input" type="search"
                    placeholder="Search Users" aria-label=" Search" name="searched">
-            <input type="submit" name="" value="search">
+            <input class="search" type="submit" name="" value="search">
         </form>
     </section>
 
@@ -26,7 +89,7 @@
                      <a href="{% url 'profile' username=user %}"> {{ user }}</a><br/>
                 {% endfor %}
             {% else %}
-                <h1>Search for something</h1>
+                <h1 class="searchStyle" >Search for something</h1>
             {% endif %}
         </center>
     </section>
