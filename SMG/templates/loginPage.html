@@ -7,7 +7,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SMG</title>
+{#    {% laod static %}#}
+{#    <link rel="stylesheet" href="{% static 'CSS/bootstrap.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">#}
       <link
+
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
     />
@@ -156,7 +160,7 @@
             <li class="home"><a href="#"> Home  </a></li>
            <li class="about"><a href="#"> About </a></li>
             <li class="login"><a href="/login"> Login</a></li>
-           <li class="signin"><a href="/register"> SignUp</a></li>
+           <li class="signin"><a href="/signup"> SignUp</a></li>
            <li class="support"><a href="#"> Support</a></li>
         </ul>
     </div>
@@ -164,7 +168,7 @@
 <section class="first-section-wrapper">
     <div class="first-section-internal-wrapper">
 
-        <form class="login-wrapper" method="post" action="{% url 'loginPage' %}">
+        <form class="login-wrapper" method="post" action="{% url 'LoginPage' %}">
 
               {% csrf_token %}
 

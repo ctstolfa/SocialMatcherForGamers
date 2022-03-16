@@ -50,7 +50,7 @@
             color: white;
         }
         .login-wrapper{
-            width: 300px;
+            width: 450px;
             padding: 40px;
             position: absolute;
             top: 50%;
@@ -58,6 +58,7 @@
             transform: translate(-50%, -50%);
             background: #191919;
             text-align: center;
+            list-style: none;
         }
           .login-wrapper h1{
               color: white;
@@ -131,33 +132,47 @@
                   font-weight: 700;
           }
           }
+        body{
+            background-color: rgb(52, 135, 193);
+        }
+
+        h1{
+            text-align: center;
+            font-family: "Apple Braille";
+            font-size: 1.5em;
+            font-weight: bolder;
+        }
+        .first-section-wrapper{
+            color: white;
+        }
+
     </style>
 </head>
 <body>
-{% for message in messages  %}
-<div class="alert alert-{{ message.tages }} alert-dismissible fade show" role="alert">
-    <strong> Message:</strong> {{ message }}
-    <button type="button" class="close" data-dismiss = "alert" aria-label="close"> <span aria-hidden = "true" > &time</span>
-        </button>
-</div>
-{% endfor %}
-{% if user.is_authenticated  %}
-<h3>Hello {{ fName }}</h3>
-<h4>You're successfully logged in</h4>
-{% endif %}
-
-<header class="nav-wrapper">
-    <div class="nav-internal-wrapper">
-        <ul class="nav-internal-ul-wrapper ">
-              <li>Welcome to SMG </li>
-        </ul>
-
-        <ul>
-           <li class="about"><a href="#"> About </a></li>
-            <li class="login"><a href="{% url 'loginPage' %}"> Login</a></li>
-        </ul>
-    </div>
-</header>
+{#{% for message in messages  %}#}
+{#<div class="alert alert-{{ message.tages }} alert-dismissible fade show" role="alert">#}
+{#    <strong> Message:</strong> {{ message }}#}
+{#    <button type="button" class="close" data-dismiss = "alert" aria-label="close"> <span aria-hidden = "true" > &time</span>#}
+{#        </button>#}
+{#</div>#}
+{#{% endfor %}#}
+{#{% if user.is_authenticated  %}#}
+{#<h3>Hello {{ fName }}</h3>#}
+{#<h4>You're successfully logged in</h4>#}
+{#{% endif %}#}
+{##}
+{#<header class="nav-wrapper">#}
+{#    <div class="nav-internal-wrapper">#}
+{#        <ul class="nav-internal-ul-wrapper ">#}
+{#              <li>Welcome to SMG </li>#}
+{#        </ul>#}
+{##}
+{#        <ul>#}
+{#           <li class="about"><a href="#"> About </a></li>#}
+{#            <li class="login"><a href="{% url 'loginPage' %}"> Login</a></li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</header>#}
 <section class="first-section-wrapper">
     <div class="first-section-internal-wrapper">
         <form class="login-wrapper" method="post">

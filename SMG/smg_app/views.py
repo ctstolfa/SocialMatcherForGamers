@@ -8,8 +8,10 @@ from .models import Account
 
 # Create your views here.
 
-def home(request):
-    return render(request, 'loginPage.html')
+
+# def home(request):
+#     return render(request, 'loginPage.html')
+
 
 def register(request):
     if request.method == "POST":
@@ -74,10 +76,10 @@ def profile(request, username):
 
     context = locals()
     template = 'profile.html'
-    return render (request, template, context)
+    return render(request, template, context)
 
 
-#def profile(request):
+# def profile(request):
 #    if request.method == "POST":
 #        user = request.POST['user']
 #        user_profile = Account.objects.filter(name__exact=user)
