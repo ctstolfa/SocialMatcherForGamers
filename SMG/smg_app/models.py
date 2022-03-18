@@ -54,7 +54,7 @@ class Account(models.Model):
         ('Midnight','Midnight'),
     )
 
-    time = models.TextField(choices=times, default=timezone.now())
+    time = models.TextField(choices=times, default=timezone.now)
 
     role = models.IntegerField(choices=Role.choices)
     gameStyle = models.TextField(choices=GameStyle.choices)
