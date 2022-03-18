@@ -28,12 +28,12 @@ class Account(models.Model):
         ('Action-adventure','Action-adventure'),
         ('RTS','RTS'),
         ('Puzzles','Puzzles'),
-        ('ParyGames','ParyGames'),
+        ('PartyGames','PartyGames'),
         ('Survival','Survival'),
         ('Horror','Horror'),
     )
 
-    genres = MultiSelectField(choices=Genres)
+    genres = MultiSelectField(choices=Genres, default=0)
 
     days = (
         ('Monday','Monday'),
@@ -45,7 +45,7 @@ class Account(models.Model):
         ('Sunday','Sunday'),
     )
 
-    schedule = MultiSelectField(choices=days)
+    schedule = MultiSelectField(choices=days, default=0)
 
     times = (
         ('Morning','Morning'),
@@ -54,7 +54,7 @@ class Account(models.Model):
         ('Midnight','Midnight'),
     )
 
-    time = models.TextField(choices=times)
+    time = models.TextField(choices=times, default=timezone.now())
 
     role = models.IntegerField(choices=Role.choices)
     gameStyle = models.TextField(choices=GameStyle.choices)
@@ -75,22 +75,23 @@ class Account(models.Model):
         return self.gameStyle
 
 
-# games section
-class Games(models.Model):
+class Friend(models.Model):
+    users = models.ManyToManyField(User)
+    current_user = models.OneToOneField(User, related_name='owner', null=True, on_delete=models.CASCADE)
+
+    @classmethod
+    def add_friend(cls, current_user, new_friend):
+        friend, created = cls.objects.get_or_create(
+            current_user=current_user
+        )
+        friend.users.add(new_friend)
+
+    @classmethod
+    def remove_friend(cls, current_user, old_friend):
+        friend, created = cls.objects.get_or_create(
+            current_user=current_user
+        )
+        friend.users.remove(old_friend)
+
     def __str__(self):
-        return self.Genres
-
-
-# schedule section
-class Schedule(models.Model):
-    monday = models.BooleanField(default=False)
-    tuesday = models.BooleanField(default=False)
-    wednesday = models.BooleanField(default=False)
-    thursday = models.BooleanField(default=False)
-    friday = models.BooleanField(default=False)
-    saturday = models.BooleanField(default=False)
-    sunday = models.BooleanField(default=False)
-    time = models.DateTimeField(default=timezone.now)
-    #account = models.ForeignKey(Account, on_delete=models.CASCADE)
-
-    # games = models.ForeignKey(Games, on_delete=models.CASCADE)
+        return str(self.current_user)+"'s friends"
