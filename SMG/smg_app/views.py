@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout as logout_user
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Friend
+from .forms import ExtendedUserCreationForm, UserProfileForm
 
 # Create your views here.
 
@@ -15,18 +16,28 @@ from .models import Friend
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        form = ExtendedUserCreationForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            profile.save()
+
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             messages.success(request, "Registration successful!")
             return redirect('LoginPage')
     else:
-        form = UserCreationForm()
+        form = ExtendedUserCreationForm()
+        profile_form = UserProfileForm()
 
-    return render(request, 'signUp.html', {'form': form, })
+    context = {'form': form, 'profile_form': profile_form}
+    return render(request, 'signUp.html', context)
 
 
 def loginPage(request):

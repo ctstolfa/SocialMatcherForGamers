@@ -182,7 +182,8 @@
             <br><h3>There was an error in your form!</h3>
             <h4>Check "Password Confirmation" below.</h4><br>
             {% endif %}
-            {{ form }}
+            {{ form.as_p }}
+            {{ profile_form.as_p }}
              <input type="submit" name="" value="Register">
         </form>
     </div>
