@@ -3,12 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    <style>
+       *{
+           margin: 0;
+           padding:0 ;
+       }
+       body{
+           background-color: rgb(43,42,51);
+           opacity: 0.8;
+
+       }
+       .nav{
+           background-color: black;
+           display: flex;
+           justify-content: center;
+           color: white;
+           font-weight: bolder;
+           font-size: 1.5em;
+           width: 100%;
+           margin:0 10% 0  0 ;
+            height: 40px;
+           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+           opacity: 1;
+       }
+        .internal-wrapper{
+           padding-top: 1.5%;
+           margin-left: 40%;
+           line-height: 30px;
+           color: white;
+           font-weight: bold;
+           font-size: 1em;
+           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+       }
+       .listStyle-wrapper{
+
+           margin-left: 40%;
+           line-height: 30px;
+       }
+
+       li{
+           list-style: none;
+           color: white;
+           font-weight: bold;
+           font-size: 1em;
+           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+       }
+
+
+    </style>
 </head>
 <body>
-    <h1>This is the profile of {{user.username }}</h1>
+     <h1 class=" nav"> SMG User Profile page</h1>
+    <h2 class="internal-wrapper">This is the profile of {{user.username }}</h2>
+    <ul class="listStyle-wrapper" >
     <li>My game style: {{user.account.gameStyle }}</li>
     <li>The type of game genres I play: {{ user.account.genres }}</li>
     <li>The days I play on: {{ user.account.schedule }}</li>
     <li>I play at: {{ user.account.time }}</li>
+        </ul>
 </body>
 </html>
