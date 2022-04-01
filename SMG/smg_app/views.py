@@ -3,9 +3,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout as logout_user
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from .models import Friend
 from .forms import ExtendedUserCreationForm, UserProfileForm
+from .connection_weight import connections
 
 # Create your views here.
 
@@ -24,8 +24,10 @@ def register(request):
 
             profile = profile_form.save(commit=False)
             profile.user = user
-
             profile.save()
+
+            friend = Friend(current_user=user)
+            friend.save()
 
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
@@ -112,3 +114,9 @@ def change_friend(request, operation, username):
         return redirect("profile", username=friend)
 
     return redirect("LoginPage")
+
+
+def connection_page(request):
+    possible_friends = connections(request.user)
+    return render(request, 'connectionsPage.html', {'possible_friends' : possible_friends})
+
