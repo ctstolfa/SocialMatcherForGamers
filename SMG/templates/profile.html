@@ -61,5 +61,17 @@
     <li>The days I play on: {{ user.account.schedule }}</li>
     <li>I play at: {{ user.account.time }}</li>
         </ul>
+
+    <ul>
+        {% for friend in friends %}
+            <a href="{% url 'profile' username=friend %}"> {{ friend }} </a>
+            {% if user.username == current_user.username %}
+                <a href="{% url 'change_friend' operation='remove' username=friend.username %}">
+                    <button type="button">Remove Friend</button>
+                </a>
+            {% endif %}
+        {% endfor %}
+
+    </ul>
 </body>
 </html>

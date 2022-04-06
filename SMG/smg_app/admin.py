@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Games, Schedule, Account
+from .models import Account, Friend
 
 # Register your models here.
 
 admin.site.register(Account)
-admin.site.register(Games)
-admin.site.register(Schedule)
-
+admin.site.register(Friend)
