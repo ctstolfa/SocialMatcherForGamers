@@ -76,7 +76,7 @@ class Account(models.Model):
 
 
 class Friend(models.Model):
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(User, null=True)
     current_user = models.OneToOneField(User, related_name='owner', null=True, on_delete=models.CASCADE)
 
     @classmethod

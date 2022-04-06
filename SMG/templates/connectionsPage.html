@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connection Page</title>
+</head>
+<body>
+    {% for friend in possible_friends %}
+    <a href="{% url 'profile' username=friend.1 %}"> {{ friend.1 }}</a>
+    <a href="{% url 'change_friend' operation='add' username=friend.1 %}">
+        <button type="button">Add Friend</button>
+    </a>
+    <br>
+    {% endfor %}
+</body>
+</html>
