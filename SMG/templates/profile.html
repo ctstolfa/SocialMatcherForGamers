@@ -64,15 +64,14 @@
 
     <ul>
         {% for friend in friends %}
-            <a href="{% url 'profile' username=friend %}"> {{ friend }} </a>
-            {% if user.username == current_user.username %}
-                <a href="{% url 'change_friend' operation='remove' username=friend.username %}">
-                    <button type="button">Remove Friend</button>
-                </a>
-            {% endif %}
+        <a href="{% url 'profile' username=friend %}"> <h6>{{ friend }}</h6> </a>
             <br>
         {% endfor %}
-
+        {% if user.username == current_user.username %}
+            <a href="{% url 'friendPage' username=user.username %}">
+            <button type="button">Friend Page</button>
+            </a>
+        {% endif %}
     </ul>
 </body>
 </html>
