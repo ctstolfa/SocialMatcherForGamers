@@ -76,7 +76,7 @@ class Account(models.Model):
 
 
 class Friend(models.Model):
-    users = models.ManyToManyField(User, null=True)
+    users = models.ManyToManyField(User)
     current_user = models.OneToOneField(User, related_name='owner', null=True, on_delete=models.CASCADE)
 
     @classmethod
@@ -95,3 +95,11 @@ class Friend(models.Model):
 
     def __str__(self):
         return str(self.current_user)+"'s friends"
+
+
+class FriendRequest(models.Model):
+    sender = models.ForeignKey(User, null=True, related_name='sender1', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='receiver1')
+
+    def __str__(self):
+        return str(self.receiver)+"'s requests"
