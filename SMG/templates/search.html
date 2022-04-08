@@ -70,14 +70,13 @@
     <header class="nav-wrapper">
     <div class="nav-internal-wrapper">
         <ul class="nav-internal-ul-wrapper ">
-              <li>Welcome to SMG </li>
         </ul>
 
         <ul>
             <li class="connection_page"><a href="/connect"> Connections Page</a></li>
            <li class="profile"><a href="{% url 'profile' username=current_user.username %}"> Profile</a></li>
             <li class="edit_profile"><a href="/editProfile"> Edit Profile</a></li>
-           <li class="search"><a href="/search"> Search</a></li>
+            <li class="logout"><a href="{% url 'logout' %}"> Search</a></li>
         </ul>
     </div>
     </header>

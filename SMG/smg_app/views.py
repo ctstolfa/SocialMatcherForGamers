@@ -52,7 +52,7 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             uName = user.username
-            return render(request, "search.html", {'uName': uName})
+            return render(request, "profile.html", {'uName': uName})
         else:
             # messages.error(request, 'Bad Credential')
             return redirect('register')
@@ -73,7 +73,7 @@ def search(request):
         return render(request, 'search.html', {'searched': searched, 'users': users,
                                                'current_user': request.user, 'friends': friends})
     else:
-        return render(request, 'search.html', {})
+        return render(request, 'search.html', {'current_user': request.user})
 
 
 def profile(request, username=None):
