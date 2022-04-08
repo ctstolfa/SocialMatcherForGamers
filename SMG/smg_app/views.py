@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout as logout_user
 from django.contrib.auth.models import User
 from .models import Friend, FriendRequest
-from .forms import ExtendedUserCreationForm, UserProfileForm
+from .forms import ExtendedUserCreationForm, UserProfileForm, UpdateProfileForm, UpdateUserForm
 from .connection_weight import connections
 
 # Create your views here.
@@ -52,7 +52,7 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             uName = user.username
-            return render(request, "search.html", {'uName': uName})
+            return render(request, "profile.html", {'uName': uName})
         else:
             # messages.error(request, 'Bad Credential')
             return redirect('register')
@@ -73,7 +73,7 @@ def search(request):
         return render(request, 'search.html', {'searched': searched, 'users': users,
                                                'current_user': request.user, 'friends': friends})
     else:
-        return render(request, 'search.html', {})
+        return render(request, 'search.html', {'current_user': request.user})
 
 
 def profile(request, username=None):
@@ -102,6 +102,22 @@ def profile(request, username=None):
     return render(request, template, context)
 
 
+def profile_update(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, instance=request.user.account)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile', username=request.user.username)
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.account)
+
+    context = {'user_form': user_form, 'profile_form': profile_form, 'user': request.user}
+
+    return render(request, 'editProfile.html', context)
+
 def change_friend(request, operation, username):
     friend = User.objects.get(username=username)
     if operation == 'add':
@@ -121,7 +137,7 @@ def change_friend(request, operation, username):
 
 def connection_page(request):
     possible_friends = connections(request.user)
-    return render(request, 'connectionsPage.html', {'possible_friends' : possible_friends})
+    return render(request, 'connectionsPage.html', {'possible_friends' : possible_friends, 'user': request.user})
 
 
 def friend_request(request, username):

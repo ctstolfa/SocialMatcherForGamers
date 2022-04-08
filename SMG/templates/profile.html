@@ -53,6 +53,19 @@
     </style>
 </head>
 <body>
+    <header class="nav-wrapper">
+    <div class="nav-internal-wrapper">
+        <ul class="nav-internal-ul-wrapper ">
+        </ul>
+
+        <ul>
+            <li class="connection_page"><a href="/connect"> Connections Page</a></li>
+            <li class="edit_profile"><a href="/editProfile"> Edit Profile</a></li>
+           <li class="search"><a href="/search"> Search</a></li>
+            <li class="logout"><a href="{% url 'logout' %}"> Logout</a></li>
+        </ul>
+    </div>
+    </header>
      <h1 class=" nav"> SMG User Profile page</h1>
     <h2 class="internal-wrapper">This is the profile of {{user.username }}</h2>
     <ul class="listStyle-wrapper" >
