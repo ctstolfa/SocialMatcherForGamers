@@ -52,7 +52,7 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             uName = user.username
-            return render(request, "profile.html", {'uName': uName})
+            return redirect("profile", username=uName)
         else:
             # messages.error(request, 'Bad Credential')
             return redirect('register')
@@ -118,10 +118,10 @@ def profile_update(request):
 
     return render(request, 'editProfile.html', context)
 
+
 def change_friend(request, operation, username):
     friend = User.objects.get(username=username)
     if operation == 'add':
-        print(friend)
         f_request = FriendRequest.objects.get(sender=friend, receiver=request.user)
         Friend.add_friend(request.user, friend)
         Friend.add_friend(friend, request.user)

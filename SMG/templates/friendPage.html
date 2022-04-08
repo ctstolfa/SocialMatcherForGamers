@@ -20,8 +20,8 @@
             <a href="{% url 'change_friend' operation='add' username=request.sender %}">
                 <button type="button">Accept Friend Request</button>
             </a>
-            <a href="{% url 'delete_request' operation='Receiver_deleting' username=request.receiver %}">
-                <button type="button">Delete Friend Request</button>
+            <a href="{% url 'delete_request' operation='Receiver_deleting' username=request.sender %}">
+                <button type="button">Deny Friend Request</button>
             </a>
             <br>
         {% endfor %}
