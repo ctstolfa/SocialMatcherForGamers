@@ -5,6 +5,20 @@
     <title>Connection Page</title>
 </head>
 <body>
+    <header class="nav-wrapper">
+    <div class="nav-internal-wrapper">
+        <ul class="nav-internal-ul-wrapper ">
+              <li>Welcome to SMG </li>
+        </ul>
+
+        <ul>
+            <li class="connection_page"><a href="/connect"> Connections Page</a></li>
+           <li class="profile"><a href="{% url 'profile' username=user.username %}"> Profile</a></li>
+            <li class="edit_profile"><a href="/editProfile"> Edit Profile</a></li>
+           <li class="search"><a href="/search"> Search</a></li>
+        </ul>
+    </div>
+    </header>
     {% for friend in possible_friends %}
     <a href="{% url 'profile' username=friend.1 %}"> {{ friend.1 }}</a>
     <a href="{% url 'change_friend' operation='add' username=friend.1 %}">

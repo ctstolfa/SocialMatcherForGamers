@@ -22,3 +22,14 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ('genres', 'schedule', 'time', 'role', 'gameStyle')
+
+
+class UpdateUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', )
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = ('genres', 'schedule', 'time', 'gameStyle')
