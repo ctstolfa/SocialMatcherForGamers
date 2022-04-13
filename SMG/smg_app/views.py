@@ -33,7 +33,7 @@ def register(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             messages.success(request, "Registration successful!")
-            return redirect('LoginPage')
+            return redirect('connection_page')
     else:
         form = ExtendedUserCreationForm()
         profile_form = UserProfileForm()
