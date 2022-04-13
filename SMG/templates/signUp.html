@@ -176,9 +176,11 @@
         <form class="login-wrapper" method="post">
               {% csrf_token %}
             <h1>Register SMG</h1>
-            {% if form.errors %}
-            <br><h3>There was an error in your form!</h3>
-            <h4>Check "Password Confirmation" below.</h4><br>
+            {% if form.errors or profile_form.errors %}
+                <br />
+                <h3>There was an error in your form!</h3>
+                <h4>Check "Password Confirmation" below.</h4>
+                <br />
             {% endif %}
             {{ form.as_p }}
             {{ profile_form.as_p }}
