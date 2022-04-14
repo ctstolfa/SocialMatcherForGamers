@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Friend Page</title>
+</head>
+<body>
+    <h1> this is {{user.username}}'s friend page</h1>
+    <h3>Current Friends</h3>
+    {% for friend in friends %}
+            <a href="{% url 'profile' username=friend %}"> {{ friend }} </a>
+            <a href="{% url 'change_friend' operation='remove' username=friend.username %}">
+                <button type="button">Remove Friend</button>
+            </a>
+            <br>
+        {% endfor %}
+    <h3>Incoming Friend Requests</h3>
+    {% for request in requests %}
+            <a href="{% url 'profile' username=request.sender %}"> {{ request.sender }} </a>
+            <a href="{% url 'change_friend' operation='add' username=request.sender %}">
+                <button type="button">Accept Friend Request</button>
+            </a>
+            <a href="{% url 'delete_request' operation='Receiver_deleting' username=request.sender %}">
+                <button type="button">Deny Friend Request</button>
+            </a>
+            <br>
+        {% endfor %}
+    <h3>Outgoing Friend Requests</h3>
+        {% for out in outgoing %}
+            <a href="{% url 'profile' username=out.receiver %}"> {{ out.receiver }} </a>
+            <a href="{% url 'delete_request' operation='Sender_deleting' username=out.receiver %}">
+                    <button type="button">Cancel Friend Request</button>
+            </a>
+            <br>
+        {% endfor %}
+</body>
+</html>

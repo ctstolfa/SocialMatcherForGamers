@@ -16,6 +16,58 @@
             background-color: rgb(197, 218, 242);
             opacity: 0.7;
         }
+        .nav{
+           background-color: black;
+           display: flex;
+           justify-content: center;
+           color: white;
+           font-weight: bolder;
+           font-size: 1.5em;
+           width: 100%;
+           margin:0 10% 0  0 ;
+            height: 40px;
+           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+           opacity: 1;
+       }
+
+       .nav-wrapper{
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            opacity: 1;
+
+        }
+        .nav-internal-wrapper{
+            margin:0 10% 0  35% ;
+            height: 40px;
+             background-color: black;
+
+        }
+        .nav-internal-wrapper ul{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+
+        }
+        .nav-internal-wrapper ul li{
+            list-style:  none;
+            margin: 4px;
+        }
+        .nav-internal-wrapper ul li a{
+            text-align: center;
+            text-decoration: none;
+            color: white;
+        }
+        .internal-wrapper{
+           padding-top: 1.5%;
+           margin-left: 40%;
+           line-height: 30px;
+           color: white;
+           font-weight: bold;
+           font-size: 1em;
+           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+       }
+
         .search-bar-wrapper{
             text-align:center ;
             font-family: -apple-system;
@@ -99,11 +151,6 @@
                 {% for user in users %}
                     <!-- 'home' will change to url of user profile -->
                      <a href="{% url 'profile' username=user %}"> {{ user }}</a>
-                    {% if user.username != current_user.username and not user in friends %}
-                        <a href="{% url 'change_friend' operation='add' username=user.username %}">
-                            <button type="button">Add Friend</button>
-                        </a>
-                    {% endif %}
                     <br/>
                 {% endfor %}
             {% else %}
