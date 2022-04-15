@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMG - {% block title %}{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(43, 42, 51);
+            opacity: 0.8;
+
+        }
+
+        .nav {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            color: white;
+            font-weight: bolder;
+            font-size: 1.5em;
+            padding: 0.5em 0 0.5em 0;
+            margin-bottom: 0.5em;
+            width: 100%;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+            opacity: 1;
+        }
+
+        .nav-wrapper {
+            background-color: #191919;;
+            margin: 0;
+            padding: 1% 0 0 0;
+            opacity: 1;
+        }
+
+        .nav-internal-wrapper {
+            margin: 0 10% 0 10%;
+            height: 40px;
+            background-color: #191919;;
+        }
+
+        .nav-internal-wrapper ul {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .nav-internal-wrapper ul li {
+            list-style: none;
+            margin: 4px;
+        }
+
+        .nav-internal-wrapper ul li a {
+            text-align: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-internal-wrapper ul li a:hover {
+            color: rgb(52, 135, 193)
+        }
+
+        .nav-internal-wrapper ul li:nth-child(1) {
+            color: rgb(52, 135, 193);
+        }
+
+        .internal-wrapper {
+            padding-top: 1.5%;
+            margin-left: 40%;
+            line-height: 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 1em;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+        }
+
+        .listStyle-wrapper {
+            margin-left: 40%;
+            line-height: 30px;
+        }
+
+        li {
+            list-style: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1em;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+        }
+
+        h4 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<header class="nav-wrapper">
+    <div class="nav-internal-wrapper">
+        <ul class="nav-internal-ul-wrapper">
+        </ul>
+
+        <ul>
+            <li>Social Matcher For Gamers</li>
+            <li class="connection_page"><a href="/connect"> Connections Page</a></li>
+            <li class="profile"><a href="{% url 'profile' username=user.username %}"> Profile</a></li>
+            <li class="edit_profile"><a href="/editProfile"> Edit Profile</a></li>
+            <li class="search"><a href="/search"> Search</a></li>
+            <li class="logout"><a href="{% url 'logout' %}"> Logout</a></li>
+        </ul>
+    </div>
+</header>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
