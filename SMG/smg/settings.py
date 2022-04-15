@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'multiselectfield',
+    'django_private_chat',
 
 ]
 
@@ -121,3 +122,7 @@ LOGIN_REDIRECT_URL = '/admin'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHAT_WS_SERVER_HOST = 'localhost'
+CHAT_WS_SERVER_PORT = 8000
+CHAT_WS_SERVER_PROTOCOL = 'ws'

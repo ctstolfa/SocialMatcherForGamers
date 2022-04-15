@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from multiselectfield import MultiSelectField
+from django.utils.translation import gettext as _
 
 # Create your models here.
 Max_length = 1023
