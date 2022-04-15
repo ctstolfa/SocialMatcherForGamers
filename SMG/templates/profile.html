@@ -2,8 +2,9 @@
 
 {% block title %}Profile{% endblock %}
 
+{% block header %}SMG User Profile: {{ user.username }}{% endblock %}
+
 {% block content %}
-<h1 class="nav">SMG User Profile: {{ user.username }}</h1>
 <ul class="listStyle-wrapper">
     <li>My game style: {{ user.account.gameStyle }}</li>
     <li>The game genres I play: {{ user.account.genres }}</li>
