@@ -19,36 +19,40 @@
         body{
             background-color: gray;
             font-family: AppleSystemUIFont;
-            opacity: 0.5;
         }
         .nav-wrapper{
-            background-color: black;
+            background-color: #191919;;
             margin: 0;
-            padding: 0;
+            padding: 1% 0 0 0;
             opacity: 1;
-
-        }
-        .nav-internal-wrapper{
-            margin:0 10% 0  35% ;
+       }
+       .nav-internal-wrapper{
+            margin:0 10% 0  20% ;
             height: 40px;
-             background-color: black;
+             background-color: #191919;;
 
-        }
-        .nav-internal-wrapper ul{
+       }
+       .nav-internal-wrapper ul{
             display: flex;
             justify-content: space-between;
             text-align: center;
 
-        }
-        .nav-internal-wrapper ul li{
+       }
+       .nav-internal-wrapper ul li{
             list-style:  none;
             margin: 4px;
-        }
-        .nav-internal-wrapper ul li a{
+       }
+       .nav-internal-wrapper ul li a{
             text-align: center;
             text-decoration: none;
             color: white;
-        }
+       }
+       .nav-internal-wrapper ul li a:hover{
+            color: rgb(52, 135, 193)
+       }
+       .nav-internal-wrapper ul li:nth-child(1) {
+            color: rgb(52, 135, 193);
+       }
         .login-wrapper{
             width: 450px;
             padding: 40px;
@@ -146,6 +150,14 @@
             color: white;
         }
 
+        li{
+           list-style: none;
+           color: white;
+           font-weight: bold;
+           font-size: 1em;
+           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+       }
+
     </style>
 </head>
 <body>
@@ -156,8 +168,10 @@
         </ul>
 
         <ul>
+            <li>Social Matcher For Gamers</li>
             <li class="connection_page"><a href="/connect"> Connections Page</a></li>
            <li class="profile"><a href="{% url 'profile' username=user.username %}"> Profile</a></li>
+            <li class="edit_profile"><a href="/editProfile"> Edit Profile</a></li>
            <li class="search"><a href="/search"> Search</a></li>
             <li class="logout"><a href="{% url 'logout' %}"> Logout</a></li>
         </ul>

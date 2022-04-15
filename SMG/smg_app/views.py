@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Friend, FriendRequest
 from .forms import ExtendedUserCreationForm, UserProfileForm, UpdateProfileForm, UpdateUserForm
 from .connection_weight import connections
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -137,14 +138,38 @@ def change_friend(request, operation, username):
 
 def connection_page(request):
     possible_friends = connections(request.user)
-    return render(request, 'connectionsPage.html', {'possible_friends' : possible_friends, 'user': request.user})
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(possible_friends, 4)
+    try:
+        display_friends = paginator.page(page)
+    except PageNotAnInteger:
+        display_friends = paginator.page(1)
+    except EmptyPage:
+        display_friends = paginator.page(paginator.num_pages)
+
+    return render(request, 'connectionsPage.html',
+                  {'possible_friends': display_friends, 'user': request.user})
 
 
 def friend_request(request, username):
     sender = request.user
     recipient = User.objects.get(username=username)
     model = FriendRequest.objects.get_or_create(sender=request.user, receiver=recipient)
-    return redirect('connection_page')
+
+    possible_friends = connections(request.user)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(possible_friends, 4)
+    try:
+        display_friends = paginator.page(page)
+    except PageNotAnInteger:
+        display_friends = paginator.page(1)
+    except EmptyPage:
+        display_friends = paginator.page(paginator.num_pages)
+
+    return render(request, 'connectionsPage.html',
+                  {'possible_friends': display_friends, 'user': request.user})
 
 
 def delete_request(request, operation, username):
