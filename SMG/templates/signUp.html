@@ -18,8 +18,7 @@
         }
         body{
             background-color: gray;
-            font-family: AppleSystemUIFont;
-            opacity: 0.5;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
         }
         .nav-wrapper{
             background-color: black;
@@ -136,12 +135,29 @@
 
         h1{
             text-align: center;
-            font-family: "Apple Braille";
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
             font-size: 1.5em;
             font-weight: bolder;
         }
         .first-section-wrapper{
             color: white;
+        }
+        .go_login {
+          background-color: rgb(52, 135, 193);
+          border: 2px solid #2ecc71;
+          color: white;
+          padding: 8px 16px;
+          margin: 10px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+          border-radius: 24px;
+          transition: 0.25s;
+        }
+        .go_login:hover {
+            background-color: #2ecc71;
         }
 
     </style>
@@ -171,7 +187,11 @@
 {#    </div>#}
 {#</header>#}
 <section class="first-section-wrapper">
+
     <div class="first-section-internal-wrapper">
+        <a href="/login">
+        <button class="go_login" type="button">Go Login</button>
+        </a>
         <form class="login-wrapper" method="post">
               {% csrf_token %}
             <h1>Register SMG</h1>
@@ -182,7 +202,8 @@
                 <br />
             {% endif %}
             {{ form.as_p }}
-            {{ profile_form.as_p }}
+            {{ profile_form.as_p}}
+
              <input type="submit" name="" value="Register">
         </form>
     </div>

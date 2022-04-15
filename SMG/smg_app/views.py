@@ -20,12 +20,13 @@ def register(request):
     if request.method == "POST":
         form = ExtendedUserCreationForm(request.POST)
         profile_form = UserProfileForm(request.POST)
-
+        print("test")
         if form.is_valid() and profile_form.is_valid():
             user = form.save()
-
             profile = profile_form.save(commit=False)
             profile.user = user
+            profile.role = 0
+            print(profile)
             profile.save()
 
             friend = Friend(current_user=user)
