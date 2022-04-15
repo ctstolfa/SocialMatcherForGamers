@@ -21,7 +21,7 @@ class ExtendedUserCreationForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('genres', 'schedule', 'time', 'role', 'gameStyle')
+        fields = ('genres', 'schedule', 'time', 'gameStyle')
 
 
 class UpdateUserForm(forms.ModelForm):
