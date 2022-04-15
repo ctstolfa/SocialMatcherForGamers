@@ -52,10 +52,8 @@
         .login-wrapper{
             width: 450px;
             padding: 40px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            margin-left: auto;
+            margin-right: auto;
             background: #191919;
             text-align: center;
             list-style: none;
@@ -177,9 +175,11 @@
         <form class="login-wrapper" method="post">
               {% csrf_token %}
             <h1>Register SMG</h1>
-            {% if form.errors %}
-            <br><h3>There was an error in your form!</h3>
-            <h4>Check "Password Confirmation" below.</h4><br>
+            {% if form.errors or profile_form.errors %}
+                <br />
+                <h3>There was an error in your form!</h3>
+                <h4>Check "Password Confirmation" below.</h4>
+                <br />
             {% endif %}
             {{ form.as_p }}
             {{ profile_form.as_p }}
@@ -189,7 +189,7 @@
 
 
 </section>
-    <section class=" footer-wrapper">
+    <section class="footer-wrapper">
     </section>
 </body>
 </html>

@@ -1,178 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% block title %}Search Users{% endblock %}
 
-{#    {% load static %}#}
-{#    <link rel="stylesheet" href="{% static 'CSS/bootstrap.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">#}
-     <title>Search Users</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            background-color: rgb(197, 218, 242);
-        }
-        .nav{
-           background-color: black;
-           display: flex;
-           justify-content: center;
-           color: white;
-           font-weight: bolder;
-           font-size: 1.5em;
-           width: 100%;
-           margin:0 10% 0  0 ;
-            height: 40px;
-           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-           opacity: 1;
-       }
+{% block style %}
+<style>
+    main {
+        width: 50%;
+        margin: 0 auto 0 auto;
+    }
 
-       .nav-wrapper{
-            background-color: #191919;;
-            margin: 0;
-            padding: 1% 0 0 0;
-            opacity: 1;
-       }
-       .nav-internal-wrapper{
-            margin:0 10% 0  20% ;
-            height: 40px;
-             background-color: #191919;;
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
 
-       }
-       .nav-internal-wrapper ul{
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
+    .search-bar-input, .search-button {
+        border: 2px darkslategray solid;
+        border-radius: 5em;
+        text-align: center;
+        font-size: 1.5em;
+    }
 
-       }
-       .nav-internal-wrapper ul li{
-            list-style:  none;
-            margin: 4px;
-       }
-       .nav-internal-wrapper ul li a{
-            text-align: center;
-            text-decoration: none;
-            color: white;
-       }
-       .nav-internal-wrapper ul li a:hover{
-            color: rgb(52, 135, 193)
-       }
-       .nav-internal-wrapper ul li:nth-child(1) {
-            color: rgb(52, 135, 193);
-       }
-        .internal-wrapper{
-           padding-top: 1.5%;
-           margin-left: 40%;
-           line-height: 30px;
-           color: white;
-           font-weight: bold;
-           font-size: 1em;
-           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-       }
+    .search-bar-input {
+        height: 40px;
+        flex: auto;
+        margin-right: 0.4em;
+    }
 
-        .search-bar-wrapper{
-            text-align:center ;
-            font-family: -apple-system;
-            font-weight: bold;
-            font-size: medium;
+    .search-button {
+        height: 40px;
+        border: 2px darkslategray solid;
+        border-radius: 5em;
+        flex: none;
+        padding: 0 0.5em 0 0.5em;
+    }
+</style>
+{% endblock %}
 
-        }
-        .search-list-wrapper{
-            text-align:center ;
-            font-family: -apple-system;
-            font-weight: bold;
-            font-size: medium;
+{% block header %}Search for someone!{% endblock %}
 
-        }
-        .search-list-wrapper{
-            text-align:center ;
-            font-family: -apple-system;
-            font-weight: bold;
-            font-size: medium;
+{% block content %}
+<section class="search-bar-wrapper">
+    <form class="search-bar" method=POST action="{% url 'search' %}">
+        {% csrf_token %}
 
-        }
-        .search-bar-input{
-            width: 600px;
-            height: 40px;
-            border: 2px darkslategray solid;
-            border-radius: 5em;
-        }
-        .searchStyle{
-            font-size: medium;
-            font-size: 1.5em;
-            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-            color: black;
-            opacity: 1;
+        <input class="search-bar-input" type="search"
+               placeholder="Search Users" aria-label="Search" name="searched">
+        <input class="search-button" type="submit" value="Search">
+    </form>
+</section>
 
-        }
-        .search-bar-input{
-            text-align: center;
-            font-size: 1.5em;
-        }
-        .search-button{
-            width: 60px;
-            height: 40px;
-            border: 2px darkslategray solid;
-            border-radius: 5em;
-        }
+<br />
 
-        li{
-           list-style: none;
-           color: white;
-           font-weight: bold;
-           font-size: 1em;
-           font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-       }
-
-
-    </style>
-</head>
-    <header class="nav-wrapper">
-    <div class="nav-internal-wrapper">
-        <ul class="nav-internal-ul-wrapper ">
-        </ul>
-
+<section class="search-list-wrapper">
+    {% if searched %}
+        <h1>You searched for "{{ searched }}":</h1>
         <ul>
-            <li>Social Matcher For Gamers</li>
-            <li class="connection_page"><a href="/connect"> Connections Page</a></li>
-           <li class="profile"><a href="{% url 'profile' username=current_user.username %}"> Profile</a></li>
-            <li class="edit_profile"><a href="/editProfile"> Edit Profile</a></li>
-           <li class="search"><a href="/search"> Search</a></li>
-            <li class="logout"><a href="{% url 'logout' %}"> Logout</a></li>
+            {% for user in users %}
+                <!-- 'home' will change to url of user profile -->
+                <li>
+                    <a href="{% url 'profile' username=user %}"> {{ user }}</a>
+                </li>
+            {% empty %}
+                <li>No results, sorry!</li>
+            {% endfor %}
         </ul>
-    </div>
-    </header>
-<body>
-    <section class="search-bar-wrapper">
-        <form class="search-bar" method=POST action="{%url 'search' %}">
-
-            {% csrf_token %}
-
-            <input class="search-bar-input" type="search"
-                   placeholder="Search Users" aria-label=" Search" name="searched">
-            <input class="search-button" type="submit" name="" value="search">
-        </form>
-    </section>
-
-    <section class="search-list-wrapper">
-        <center>
-            {% if searched %}
-                <h1>You searched for {{ searched }} </h1>
-                {% for user in users %}
-                    <!-- 'home' will change to url of user profile -->
-                     <a href="{% url 'profile' username=user %}"> {{ user }}</a>
-                    <br/>
-                {% endfor %}
-            {% else %}
-                <h1 class="searchStyle" >Search for something</h1>
-            {% endif %}
-        </center>
-    </section>
-</body>
-</html>
+    {% endif %}
+</section>
+{% endblock %}

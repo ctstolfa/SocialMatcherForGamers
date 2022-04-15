@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout as logout_user
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Friend, FriendRequest
 from .forms import ExtendedUserCreationForm, UserProfileForm, UpdateProfileForm, UpdateUserForm
@@ -33,8 +34,9 @@ def register(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
+            login(request, user)
             messages.success(request, "Registration successful!")
-            return redirect('LoginPage')
+            return redirect('connection_page')
     else:
         form = ExtendedUserCreationForm()
         profile_form = UserProfileForm()
@@ -44,6 +46,9 @@ def register(request):
 
 
 def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect("user_profile")
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -60,11 +65,13 @@ def loginPage(request):
     return render(request, 'loginPage.html')
 
 
+@login_required()
 def logout(request):
     logout_user(request)
-    return redirect("LoginPage")
+    return redirect("login")
 
 
+@login_required()
 def search(request):
     if request.method == "POST":
         searched = request.POST['searched']
@@ -77,8 +84,8 @@ def search(request):
         return render(request, 'search.html', {'current_user': request.user})
 
 
+@login_required()
 def profile(request, username=None):
-
     # If no such user exists raise 404
     try:
         if username:
@@ -89,7 +96,7 @@ def profile(request, username=None):
         raise Http404
 
     current_user = request.user
-    view_user = User.objects.get(username=username)
+    view_user = User.objects.get(username=user.username)
     friend = Friend.objects.get(current_user=view_user)
     friends = friend.users.all()
     # Flag that determines if we should show editable elements in template
@@ -103,6 +110,7 @@ def profile(request, username=None):
     return render(request, template, context)
 
 
+@login_required()
 def profile_update(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
@@ -120,6 +128,7 @@ def profile_update(request):
     return render(request, 'editProfile.html', context)
 
 
+@login_required()
 def change_friend(request, operation, username):
     friend = User.objects.get(username=username)
     if operation == 'add':
@@ -133,9 +142,10 @@ def change_friend(request, operation, username):
         Friend.remove_friend(friend, request.user)
         return redirect("friendPage", username=request.user)
 
-    return redirect("LoginPage")
+    return redirect("login")
 
 
+@login_required()
 def connection_page(request):
     possible_friends = connections(request.user)
 
