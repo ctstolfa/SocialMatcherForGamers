@@ -29,7 +29,14 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ('username', )
 
+
 class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ('genres', 'schedule', 'time', 'gameStyle')
+        widgets = {
+            'time': forms.Select(attrs={'class': 'select'}),
+            'gameStyle': forms.Select(attrs={'class': 'select'}),
+            'genres': forms.CheckboxSelectMultiple(attrs={'class': 'choice'}),
+            'schedule': forms.CheckboxSelectMultiple(attrs={'class': 'choice'}),
+        }

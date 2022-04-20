@@ -160,6 +160,23 @@
             background-color: #2ecc71;
         }
 
+        select {
+            background: #191919;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #3498db;
+            padding: 5px 10px;
+            width: 100px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+        }
+
+        choices {
+            padding: 20px 10px;
+        }
     </style>
 </head>
 <body>
@@ -202,6 +219,7 @@
                 <br />
             {% endif %}
             {{ form.as_p }}
+            <br>
             {{ profile_form.as_p}}
 
              <input type="submit" name="" value="Register">
