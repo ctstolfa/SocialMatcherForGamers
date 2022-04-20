@@ -3,13 +3,15 @@
 {% block title %}Edit Profile Page{% endblock %}
 
 {% block style %}
+<style>
+    main {
+        margin-left: 0%;
+    }
+
     .login-wrapper{
         width: 450px;
-        padding: 40px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        padding: 40px 40px 20px 40px;
+        margin: 1% auto 1% auto;
         background: #191919;
         text-align: center;
         list-style: none;
@@ -17,6 +19,7 @@
 
     .login-wrapper h1{
         color: white;
+        text-transform: uppercase;
         font-weight: 500;
     }
 
@@ -46,6 +49,7 @@
         display: block;
         margin: 20px auto;
         text-align: center;
+        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
         border: 2px solid #2ecc71;
         padding: 14px 40px;
         outline: none;
@@ -74,19 +78,39 @@
        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
    }
 
+    .select {
+        background: #191919;
+        margin: 20px auto;
+        text-align: center;
+        border: 2px solid #3498db;
+        padding: 5px 10px;
+        width: 100px;
+        outline: none;
+        color: white;
+        border-radius: 24px;
+        transition: 0.25s;
+        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    }
+
+    .choice {
+        padding: 20px 10px;
+    }
+</style>
 {% endblock %}
+
+{% block header %}Edit Profile{% endblock %}
 
 {% block content %}
     <section class="first-section-wrapper">
         <div class="first-section-internal-wrapper">
             <form class="login-wrapper" method="post">
-                <h1>Register SMG</h1>
                 {% if form.errors %}
                 <br><h3>There was an error in your form!</h3>
                 <h4>Check "Password Confirmation" below.</h4><br>
                 {% endif %}
-            {% csrf_token %}
+                {% csrf_token %}
                 {{ user_form.as_p }}
+                <br>
                 {{ profile_form.as_p }}
                  <input type="submit" name="" value="Update">
             </form>
