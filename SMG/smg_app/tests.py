@@ -4,7 +4,7 @@ from django.test import TestCase
 User = get_user_model()
 
 
-class UserLogin(TestCase):
+class UserRegisterAndLogin(TestCase):
 
     def setUp(self):
         user_a = User(username='UserTest')
