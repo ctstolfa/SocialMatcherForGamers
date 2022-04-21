@@ -1,5 +1,7 @@
 from django.contrib import admin
+
 from .models import Account, Friend, FriendRequest
+
 
 # Register your models here.
 
