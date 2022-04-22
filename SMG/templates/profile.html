@@ -73,7 +73,12 @@
     <br>
     <li>Friends:</li>
     {% for friend in friends %}
-        <li><a href="{% url 'profile' username=friend %}">{{ friend }}</a></li>
+        <li>
+            <a href="{% url 'profile' username=friend %}">{{ friend }}</a>
+            <a href="{% url 'message' username=friend %}">
+                <button class="chat" type="button"> chat </button>
+            </a>
+        </li>
     {% empty %}
         <li><a href="{% url 'connection_page' %}">None yet. Go out and make some!</a></li>
     {% endfor %}
