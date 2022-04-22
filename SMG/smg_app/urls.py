@@ -19,4 +19,5 @@ urlpatterns = [
     path("friends_page/<username>", views.friendPage, name="friendPage"),
     path("connect", views.connection_page, name="connection_page"),
     path("message/<username>", views.message, name="message"),
+    path("send_message", views.send_message, name="send_message"),
 ]

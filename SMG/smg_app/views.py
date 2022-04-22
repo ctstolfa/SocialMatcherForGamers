@@ -1,18 +1,22 @@
+from datetime import datetime
+from json import loads
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import Http404
+from django.http import Http404, HttpResponseNotFound, HttpResponseNotAllowed, HttpResponse
 from django.shortcuts import redirect, render
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from .connection_weight import connections
 from .forms import (
     ExtendedUserCreationForm, UpdateProfileForm, UpdateUserForm,
     UserProfileForm,
 )
-from .models import Friend, FriendRequest
+from .models import Friend, FriendRequest, Message
 
 
 # Create your views here.
@@ -175,6 +179,7 @@ def connection_page(request):
     )
 
 
+@login_required()
 def friend_request(request, username):
     request.user
     recipient = User.objects.get(username=username)
@@ -196,6 +201,7 @@ def friend_request(request, username):
     )
 
 
+@login_required()
 def delete_request(request, operation, username):
     p_friend = User.objects.get(username=username)
     if operation == "Sender_deleting":
@@ -209,6 +215,7 @@ def delete_request(request, operation, username):
     return redirect("friendPage", username=request.user)
 
 
+@login_required()
 def friendPage(request, username=None):
     try:
         if username:
@@ -226,3 +233,46 @@ def friendPage(request, username=None):
     context = {"user": user, "friends": friends, "requests": f_requests, "outgoing": req_outgoing}
     template = "friendPage.html"
     return render(request, template, context)
+
+
+@login_required()
+@ensure_csrf_cookie
+def message(request, username: str):
+    try:
+        User.objects.get(username=username)
+    except User.DoesNotExist:
+        return HttpResponseNotFound()
+
+    usernames = [request.user.username, username]
+    ctx = {
+        "username": username,
+        "messages": Message.objects.filter(
+            sender__username__in=usernames,
+            receiver__username__in=usernames
+        ),
+    }
+
+    return render(request, "message.html", ctx)
+
+
+@login_required()
+def send_message(request):
+    if request.method != "POST":
+        return HttpResponseNotAllowed()
+
+    body = loads(request.body)
+    username = body.get("username", "")
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return HttpResponseNotFound()
+    contents = body.get("contents", "uh oh!")
+    message = Message(
+        sender=request.user,
+        receiver=user,
+        contents=contents,
+        time=datetime.now(),
+    )
+    message.save()
+
+    return HttpResponse(status=200)

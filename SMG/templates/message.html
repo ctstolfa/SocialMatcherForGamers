@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Messages with {{ username }}{% endblock %}
+
+{% block style %}
+<style>
+    main {
+        margin-left: 30%;
+        margin-right: 30%;
+        width: 40%;
+    }
+
+    .message {
+        line-height: 2;
+        display: flex;
+        margin-bottom: 0.5em;
+    }
+
+    .profile-pic {
+        display: inline-block;
+        border-radius: 1em;
+        padding: 0 0.4em 0 0.4em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: initial;
+        align-self: flex-start;
+        margin-right: 0.6em;
+    }
+
+    .profile-pic.sender {
+        background-color: #3498db;
+    }
+
+    .profile-pic.recipient {
+        background-color: #e39400;
+    }
+
+    .message-text {
+        flex: auto;
+    }
+
+    .message-time {
+        flex: initial;
+        flex-shrink: 0;
+    }
+
+    #send {
+        width: 100%;
+        display: flex;
+    }
+
+    #send input {
+        flex: auto;
+        border-radius: 1.5em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        font-size: 1em;
+    }
+
+    #send button {
+        flex: none;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 1em;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="pane">
+    <div id="messages">
+
+    </div>
+    <div id="send">
+        <input type="text" placeholder="Send a message..." />
+        <button>Send</button>
+    </div>
+</div>
+
+<script type="module">
+    import epochTimeago from 'https://cdn.skypack.dev/epoch-timeago';
+    import Cookies from 'https://cdn.skypack.dev/js-cookie';
+
+    const RECIPIENT = "{{ username }}";
+
+    let message_window = document.querySelector("#messages");
+
+    function render(messages) {
+        for(let message of messages) {
+            message_window.innerHTML += `
+                <div class="message">
+                    <div class="profile-pic ${message.sender == RECIPIENT ? "recipient" : "sender"}">${message.sender}</div>
+                    <span class="message-text">${message.contents}</span>
+                    <span class="message-time" alt="${(new Date(message.time)).toLocaleString()}">${epochTimeago(message.time)}
+                </div>
+            `;
+        }
+    }
+
+    let messages = [
+        {% for message in messages %}
+            {sender: "{{ message.sender.username }}", contents: "{{ message.contents }}", time: Math.floor({{ message.time.timestamp }} * 1000) },
+        {% endfor %}
+    ];
+
+    render(messages);
+
+    let text = document.querySelector("#send input");
+    function sendMessage(e) {
+        let trimmed = text.value.trim();
+        if(trimmed != "") {
+            e.preventDefault();
+            text.disabled = true;
+            fetch("{% url "send_message" %}", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "X-CSRFToken": Cookies.get("csrftoken"),
+                },
+                body: JSON.stringify({
+                    username: RECIPIENT,
+                    contents: trimmed,
+                }),
+            }).then(_ => {
+                text.value = "";
+                text.disabled = false;
+            });
+        }
+    }
+
+    function onEnter(e) {
+        if(e.key === "Enter") {
+            sendMessage(e);
+        }
+    }
+
+    text.addEventListener("keydown", onEnter);
+    document.querySelector("#send button").addEventListener("click", sendMessage);
+</script>
+{% endblock %}

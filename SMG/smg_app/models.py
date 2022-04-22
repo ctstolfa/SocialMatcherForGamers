@@ -100,7 +100,17 @@ class Friend(models.Model):
 
 class FriendRequest(models.Model):
     sender = models.ForeignKey(User, null=True, related_name="sender1", on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name="receiver1")
+    receiver = models.ForeignKey(User, null=True, related_name="receiver1", on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.receiver)+"'s requests"
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name="sent_messages", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name="received_messages", on_delete=models.CASCADE)
+    contents = models.TextField()
+    time = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.sender.username} to {self.receiver.username}: {self.contents}"
