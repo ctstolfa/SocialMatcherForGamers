@@ -1,14 +1,16 @@
 from django.contrib.auth import get_user_model
 from .models import Account
 from django.test import TestCase
+
+
 User = get_user_model()
 
 
 class UserRegisterAndLogin(TestCase):
 
     def setUp(self):
-        user_a = User(username='UserTest')
-        user_a_pw = 'TestingThisPassword1@'
+        user_a = User(username="UserTest")
+        user_a_pw = "TestingThisPassword1@"
         self.user_a_pw = user_a_pw
         user_a.is_staff = True
         user_a.is_superuser = True
