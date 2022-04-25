@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 from pathlib import Path
 import django_on_heroku
-django_on_heroku.settings(locals())
 
 
 #from Lib import multiselectfield
@@ -127,3 +126,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CHAT_WS_SERVER_HOST = "localhost"
 CHAT_WS_SERVER_PORT = 8000
 CHAT_WS_SERVER_PROTOCOL = "ws"
+
+django_on_heroku.settings(locals())
