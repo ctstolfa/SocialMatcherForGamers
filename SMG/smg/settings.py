@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 
@@ -123,5 +123,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CHAT_WS_SERVER_HOST = "localhost"
 CHAT_WS_SERVER_PORT = 8000
 CHAT_WS_SERVER_PROTOCOL = "ws"
+
+CSRF_TRUSTED_ORIGINS = ["https://social-matcher-for-gamers.herokuapp.com"]
 
 django_heroku.settings(locals())
