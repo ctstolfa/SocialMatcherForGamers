@@ -249,7 +249,7 @@ def message(request, username: str):
         "messages": Message.objects.filter(
             sender__username__in=usernames,
             receiver__username__in=usernames,
-        ).order_by('time'),
+        ).order_by('-time'),
     }
 
     return render(request, "message.html", ctx)
