@@ -88,7 +88,7 @@ def search(request):
         searched = request.POST["searched"]
         users = User.objects.all().filter(username__contains=searched).filter(is_staff=0)
         friend = Friend.objects.get(current_user=request.user)
-        friends = friend.users.all()
+        friends = list(friend.users.all())
         return render(
             request, "search.html", {
                 "searched": searched, "users": users,
@@ -181,10 +181,8 @@ def connection_page(request):
 
 @login_required()
 def friend_request(request, username):
-    request.user
     recipient = User.objects.get(username=username)
-    model = FriendRequest.objects.get_or_create(sender=request.user, receiver=recipient)
-
+    FriendRequest.objects.get_or_create(sender=request.user, receiver=recipient)
     possible_friends = connections(request.user)
     page = request.GET.get("page", 1)
     paginator = Paginator(possible_friends, 4)
@@ -199,6 +197,13 @@ def friend_request(request, username):
         request, "connectionsPage.html",
         {"possible_friends": display_friends, "user": request.user},
     )
+
+
+@login_required()
+def friend_request_s(request, username):
+    recipient = User.objects.get(username=username)
+    FriendRequest.objects.get_or_create(sender=request.user, receiver=recipient)
+    return render(request, "search.html", {"current_user": request.user})
 
 
 @login_required()
