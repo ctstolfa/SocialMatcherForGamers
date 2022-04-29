@@ -21,4 +21,5 @@ urlpatterns = [
     path("connect", views.connection_page, name="connection_page"),
     path("message/<username>", views.message, name="message"),
     path("send_message", views.send_message, name="send_message"),
+    path("get_new_messages/<username>/<time>", views.get_new_messages, name="get_new_messages"),
 ]

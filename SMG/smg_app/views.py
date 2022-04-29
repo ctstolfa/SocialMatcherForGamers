@@ -1,5 +1,5 @@
 from datetime import datetime
-from json import loads
+import json
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -254,7 +254,7 @@ def message(request, username: str):
         "messages": Message.objects.filter(
             sender__username__in=usernames,
             receiver__username__in=usernames,
-        ).order_by('-time'),
+        ).order_by("time"),
     }
 
     return render(request, "message.html", ctx)
@@ -265,7 +265,7 @@ def send_message(request):
     if request.method != "POST":
         return HttpResponseNotAllowed()
 
-    body = loads(request.body)
+    body = json.loads(request.body)
     username = body.get("username", "")
     try:
         user = User.objects.get(username=username)
@@ -281,3 +281,24 @@ def send_message(request):
     message.save()
 
     return HttpResponse(status=200)
+
+
+@login_required()
+def get_new_messages(request, username, time):
+    if request.method != "GET":
+        return HttpResponseNotAllowed()
+
+    try:
+        time = float(time)
+    except ValueError:
+        return HttpResponseNotAllowed()
+    time = datetime.fromtimestamp(time)
+    usernames = [request.user.username, username]
+    new_messages = Message.objects.filter(
+        sender__username__in=usernames,
+        receiver__username__in=usernames,
+        time__gt=time,
+    ).order_by("time")
+    new_messages = "[" + ",".join(m.to_json() for m in new_messages) + "]"
+
+    return HttpResponse(f"""{{"messages": {new_messages}}}""")

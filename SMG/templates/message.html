@@ -14,6 +14,7 @@
         line-height: 2;
         display: flex;
         margin-bottom: 0.5em;
+        scroll-snap-align: end;
     }
 
     .profile-pic {
@@ -50,7 +51,12 @@
         padding: 10px;
         height: 70vh;
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
+    }
+
+    #message-padding {
+        flex-grow: 1;
+        flex-shrink: 1;
     }
 
     #send {
@@ -83,7 +89,7 @@
 {% block content %}
 <div id="pane">
     <div id="messages">
-
+        <div id="message-padding"></div>
     </div>
     <div id="send">
         <input type="text" placeholder="Send a message..." />
@@ -105,7 +111,7 @@
                 <div class="message">
                     <div class="profile-pic ${message.sender == RECIPIENT ? "recipient" : "sender"}">${message.sender}</div>
                     <span class="message-text">${message.contents}</span>
-                    <span class="message-time" alt="${(new Date(message.time)).toLocaleString()}">${epochTimeago(message.time)}
+                    <span class="message-time" alt="${(new Date(message.time)).toLocaleString()}">${epochTimeago(message.time * 1000)}
                 </div>
             `;
         }
@@ -113,11 +119,12 @@
 
     let messages = [
         {% for message in messages %}
-            {sender: "{{ message.sender.username }}", contents: "{{ message.contents }}", time: Math.floor({{ message.time.timestamp }} * 1000) },
+            {{ message.to_json | safe }},
         {% endfor %}
     ];
 
     render(messages);
+    message_window.scroll(0, message_window.scrollHeight);
 
     let text = document.querySelector("#send input");
     function sendMessage(e) {
@@ -150,5 +157,33 @@
 
     text.addEventListener("keydown", onEnter);
     document.querySelector("#send button").addEventListener("click", sendMessage);
+
+    function refreshMessages() {
+        fetch("{% url "get_new_messages" username 0 %}".replace("/0", "/" + (messages ? messages[messages.length - 1].time : 0)), {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "X-CSRFToken": Cookies.get("csrftoken"),
+            },
+        }).then(response => {
+            response.json().then(json => {
+                let new_messages = json["messages"];
+                let shouldScroll = message_window.scrollHeight - message_window.scrollTop - message_window.clientHeight < 30;
+                render(new_messages);
+                messages = messages.concat(new_messages);
+                let times = document.querySelectorAll("span.message-time");
+                for(let i = 0; i < messages.length; i++) {
+                    times[i].innerText = epochTimeago(messages[i].time * 1000);
+                }
+                setTimeout(refreshMessages, 500);
+
+                if(shouldScroll) {
+                    message_window.scroll(0, message_window.scrollHeight);
+                }
+            });
+        });
+    }
+
+    setTimeout(refreshMessages, 500);
 </script>
 {% endblock %}
