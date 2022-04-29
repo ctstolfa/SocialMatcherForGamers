@@ -15,6 +15,22 @@
         text-transform: uppercase;
     }
 
+    .friend_page {
+        background-color: rgb(43, 42, 51);
+        border: 2px solid #2ecc71;
+        color: white;
+        padding: 5px 10px;
+        margin: 10px 0 0 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 24px;
+        transition: 0.25s;
+    }
+
     body {
         background-color: rgb(43, 42, 51);
         opacity: 0.8;
@@ -80,7 +96,16 @@
     }
 
     main {
-        margin-left: 40%;
+        margin-left: 30%;
+    }
+
+    main a {
+        color: rgb(52, 135, 193);
+        font-weight: bold;
+    }
+
+    main a:hover {
+        color: grey;
     }
 
     button {
@@ -92,9 +117,10 @@
         text-align: center;
         text-decoration: none;
         display: inline-block;
+        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
         font-size: 0.9em;
         border-radius: 1em;
-         transition: 0.25s;
+        transition: 0.25s;
         cursor: pointer;
     }
 
@@ -139,7 +165,7 @@
     {% for request in requests %}
             <a href="{% url 'profile' username=request.sender %}"> {{ request.sender }} </a>
             <a href="{% url 'change_friend' operation='add' username=request.sender %}">
-                <button type="button">Accept Friend Request</button>
+                <button class="friend_page" type="button">Accept Friend Request</button>
             </a>
             <a href="{% url 'delete_request' operation='Receiver_deleting' username=request.sender %}">
                 <button type="button">Deny Friend Request</button>
